@@ -1,15 +1,23 @@
 package com.cognizant.truyum.dao;
 
 import java.util.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.stereotype.Component;
+
 import java.io.*;
 import java.sql.SQLException;
 
 import com.cognizant.truyum.model.Cart;
 import com.cognizant.truyum.model.MenuItem;
-
+//@Component
+//@ImportResource("classpath:spring-config.xml")
 public class CartDaoCollectionImpl implements CartDao {
-	
-	private static Map<Long, Cart> userCarts;
+//	@Autowired
+//	@Qualifier("cartDaoMap")
+	private Map<Long, Cart> userCarts;
 
 
 	public Map<Long, Cart> getUserCarts() {
@@ -17,7 +25,7 @@ public class CartDaoCollectionImpl implements CartDao {
 	}
 
 	public void setUserCarts(HashMap<Long, Cart> userCarts) {
-		CartDaoCollectionImpl.userCarts = userCarts;
+		this.userCarts = userCarts;
 	}
 
 	@Override
@@ -40,15 +48,28 @@ public class CartDaoCollectionImpl implements CartDao {
 		 
 		
 	}
-	
 	public CartDaoCollectionImpl() {
 		super();
-		if(userCarts==null) {
-			userCarts = new HashMap <Long, Cart>();
-			
 		}
-		
+	
+	
+	
+	
+	public CartDaoCollectionImpl(Map<Long, Cart> userCarts) {
+		super();
+		this.userCarts = userCarts;
 	}
+
+	//removed as per 6.2
+//	public CartDaoCollectionImpl() {
+//		super();
+//		if(userCarts==null) {
+//			userCarts = new HashMap <Long, Cart>();
+//			
+//		}
+//		
+//	}
+
 
 	@Override
 	public List<MenuItem> getAllCartItems(long userId) throws CartEmptyException{
