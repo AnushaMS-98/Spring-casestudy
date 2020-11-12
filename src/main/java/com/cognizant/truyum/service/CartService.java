@@ -13,12 +13,12 @@ import com.cognizant.truyum.dao.CartEmptyException;
 import com.cognizant.truyum.model.Cart;
 import com.cognizant.truyum.model.MenuItem;
 
-//@Service
+@Service
 public class CartService {
 	
 	CartDao cartDao;
 	
-//	@Autowired
+	@Autowired
 	public void setCartDao(CartDao cartDao) {
 		this.cartDao = cartDao;
 	}

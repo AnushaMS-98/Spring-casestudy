@@ -23,24 +23,55 @@ public class CartServiceTest {
 
 	@Before
 	public void initializeService()  {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-config.xml");
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		context.scan("com.cognizant.truyum");
+		context.refresh();
+		cartService = context.getBean(CartService.class);
 
 		
 	}
 	@Test(expected = CartEmptyException.class)
 	 public void testGetAllCartItems() throws ClassNotFoundException, CartEmptyException, SQLException {
-
+		cartService.getAllCartItems(1);
+		
 	 }
 	
-	
+	@Test(expected = CartEmptyException.class)
     public void testAddCartItem() throws CartEmptyException, ClassNotFoundException, SQLException, IOException {
+		boolean result = false;
+        for(MenuItem item : cartService.getAllCartItems(1)) {
+            if(item.getName().equalsIgnoreCase("Sandwich")) {
+                result = true;
+            }
+        }
+        assertFalse(result);
+       result = false;
+        cartService.addCartItem(1, 1);
+        for(MenuItem item : cartService.getAllCartItems(1)) {
+            if(item.getName().equalsIgnoreCase("Sandwich")) {
+                result = true;
+            }
+        }
+        assertTrue(result);
 
     }
     @Test(expected = CartEmptyException.class)
     public void testRemoveCartItem() throws CartEmptyException, ClassNotFoundException, SQLException, IOException {
+    	cartService.removeCartItem(1, 1);
+        boolean expected =false;
+        List <MenuItem>cartList = cartService.getAllCartItems(1);
+        for(MenuItem menuItem:cartList) {
+        	if(menuItem.getName().equals("Sandwich")) {
+        		expected = true;
+        	}
+        }
+        assertTrue(expected);
+    }
 
     }
 
 	
-	}
+
 
 

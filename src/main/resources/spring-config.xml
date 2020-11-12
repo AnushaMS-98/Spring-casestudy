@@ -108,6 +108,74 @@
 	<bean id="menuItemService"
 		class="com.cognizant.truyum.service.MenuItemService" />
 
+	<bean class="java.util.ArrayList" id="itemInCartOne">
+
+
+		<constructor-arg>
+
+			<list />
+
+		</constructor-arg>
+
+	</bean>
+
+
+	<bean class="java.util.ArrayList" id="itemInCartTwo">
+		<constructor-arg>
+			<list>
+				<ref bean="sandwich" />
+				<ref bean="pizza" />
+			</list>
+		</constructor-arg>
+	</bean>
+	<bean class="com.cognizant.truyum.model.Cart" id="cartOne">
+
+		<property name="menuItemList" ref="itemInCartOne" />
+
+		<property value="0" name="total" />
+
+	</bean>
+
+
+	<bean class="com.cognizant.truyum.model.Cart" id="cartTwo">
+
+		<property name="menuItemList" ref="itemInCartTwo" />
+
+		<property value="0" name="total" />
+
+	</bean>
+
+
+	<bean class="java.util.HashMap" id="cartDaoMap">
+
+
+		<constructor-arg>
+
+
+			<map>
+
+				<entry value-ref="cartOne" key="1" />
+
+				<entry value-ref="cartTwo" key="2" />
+
+			</map>
+
+		</constructor-arg>
+
+	</bean>
+
+
+	<bean class="com.cognizant.truyum.dao.CartDaoCollectionImpl"
+		id="cartDaoCollectionImpl">
+
+
+		<property name="userCarts">
+
+			<ref bean="cartDaoMap" />
+
+		</property>
+
+	</bean>
 
 	<bean id="cartService"
 		class="com.cognizant.truyum.service.CartService">
