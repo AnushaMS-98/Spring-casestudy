@@ -23,7 +23,7 @@ public class CartServiceTest {
 
 	@Before
 	public void initializeService()  {
-		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-config.xml");
+//		ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-config.xml");
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 		context.scan("com.cognizant.truyum");
 		context.refresh();
